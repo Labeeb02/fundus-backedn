@@ -111,7 +111,7 @@ passport.use(
 app.use(passport.initialize());
 
 app.use('/auth', authRouter)
-app.use('/db',updateRouter)
+app.use('/db',dbRouter)
 app.use('/failed', (req, res) => res.send('You Failed to log in!'))
 app.use('/', (req, res) => res.send('Hello World!'))
 
