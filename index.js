@@ -52,8 +52,6 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, 
     callback) => {
-      console.log(process.env.GOOGLE_CLIENT_ID);
-      console.log(process.env.GOOGLE_CLIENT_SECRET);
       // Extract email from profile
       try{
       const email = profile.emails[0].value;
@@ -115,7 +113,7 @@ app.use(passport.initialize());
 app.use('/auth', authRouter)
 app.use('/db',dbRouter)
 app.use('/failed', (req, res) => res.send('You Failed to log in!'))
-app.use('/', (req, res) => res.send('Hello World!'))
+app.use('/', (req, res) => res.send({clientID:process.env.GOOGLE_CLIENT_ID,clientSecret:process.env.GOOGLE_CLIENT_SECRET}))
 
 
 app.listen(port,console.log(`listening at ${port}`))
