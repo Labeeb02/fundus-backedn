@@ -52,6 +52,8 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, 
     callback) => {
+      console.log(process.env.GOOGLE_CLIENT_ID);
+      console.log(process.env.GOOGLE_CLIENT_SECRET);
       // Extract email from profile
       try{
       const email = profile.emails[0].value;
