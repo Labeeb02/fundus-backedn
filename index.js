@@ -24,7 +24,7 @@ mongoose.connect((process.env.MONGO_URI))
 })
 
 images = []
-for(var i=1;i<98;i++)
+for(var i=1;i<99;i++)
 {
     images.push(
       {
