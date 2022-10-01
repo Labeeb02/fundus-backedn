@@ -56,7 +56,7 @@ router.post('/update/:photoId',verifyToken,async (req,res)=>{
     }
 })
 
-router.post('/getImage/:photoId',verifyToken,async (req,res)=>{
+router.get('/getImage/:photoId',verifyToken,async (req,res)=>{
     try{
         const user=await User.findById(req.user.id);
         if(user)
