@@ -101,7 +101,7 @@ passport.use(
     
         await user.save();
     
-        return callback(null, {id: user.id,token: tkn,last:1});
+        return callback(null, {id: user.id,token: tkn,last:0});
         }
         }catch(err){
             
