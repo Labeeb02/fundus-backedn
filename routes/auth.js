@@ -16,10 +16,7 @@ req.session = {jwt}
 // Successful authentication, redirect home
 //res.status(200).redirect('/home');
 //res.send({id,jwt})
-res.cookie(`jwt`,jwt);
-res.cookie(`id`,id);
-res.cookie(`last`,last);
-res.redirect('https://fantastic-madeleine-065d19.netlify.app');
+res.redirect('https://fantastic-madeleine-065d19.netlify.app?id='+id+'&jwt='+jwt+'&last='+last);
 
 });
 
