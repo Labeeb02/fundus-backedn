@@ -5,13 +5,16 @@ const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const authRouter = require('./routes/auth')
 const dbRouter = require('./routes/db')
+const backupRouter = require('./routes/backup')
 const cors = require('cors')
 const User=require('./models/User')
 const jwt=require('jsonwebtoken');
+const cookieParser = require('cookie-parser')
 
 
 dotenv.config()
 const app = express()
+app.use(cookieParser())
 app.use(express.json())
 app.use(cors())
 const port=process.env.PORT || 5000
@@ -112,6 +115,7 @@ app.use(passport.initialize());
 
 app.use('/auth', authRouter)
 app.use('/db',dbRouter)
+app.use('/backup',backupRouter)
 app.use('/failed', (req, res) => res.send('You Failed to log in!'))
 app.use('/', (req, res) => res.send('Hello World!'))
 
