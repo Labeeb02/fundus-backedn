@@ -13,7 +13,7 @@ const userSchema=new mongoose.Schema(
         },
         lastAccessed:{
             type:Number,
-            default:1
+            default:0
         },
         pictures:[
             {
