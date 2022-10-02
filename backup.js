@@ -42,7 +42,7 @@ const backup=async ()=>{
         var hour=date.getHours();
         var minute=date.getMinutes();
         var second=date.getSeconds();
-        var filename=year+''+month+''+day+''+hour+''+minute+''+second;
+        var filename=year+'_'+month+'_'+day+'_'+hour+'_'+minute+'_'+second;
         resp = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
             owner: 'Fundus01',
             repo: 'image-fundus',
