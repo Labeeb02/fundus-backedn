@@ -37,7 +37,8 @@ router.post('/update/:photoId',verifyToken,async (req,res)=>{
         {
             try{
                 const updatedUser=await User.findByIdAndUpdate(req.user.id,{ 
-                    "$set": {[`pictures.$[outer]`]:{id:req.params.photoId,...(req.body)}}
+                    "$set": {[`pictures.$[outer]`]:{id:req.params.photoId,...(req.body)},
+                            "lastAccessed":req.params.photoId}
                 },{ 
                     "arrayFilters": [{ "outer.id": req.params.photoId }],"new": true
                 });

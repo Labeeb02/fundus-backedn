@@ -14,10 +14,10 @@ const id=req.user.id;
 req.session = {jwt}
 // Successful authentication, redirect home
 //res.status(200).redirect('/home');
-// res.send({id,jwt})
-res.cookie(`jwt`,jwt);
-res.cookie(`id`,id);
-res.redirect('https://fantastic-madeleine-065d19.netlify.app');
+res.send({id,jwt})
+// res.cookie(`jwt`,jwt);
+// res.cookie(`id`,id);
+// res.redirect('https://fantastic-madeleine-065d19.netlify.app');
 
 });
 

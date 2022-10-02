@@ -51,7 +51,7 @@ passport.use(
      clientID: process.env.GOOGLE_CLIENT_ID,
      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
      callbackURL: 
-    'https://fundus-image.herokuapp.com/auth/google/callback',
+    'http://localhost:8080/auth/google/callback',
     },
     async (accessToken, refreshToken, profile, 
     callback) => {
@@ -79,7 +79,7 @@ passport.use(
         // existingUser.token = tkn
         // await existingUser.save();
     
-        return callback(null, {id:existingUser.id ,token: tkn});
+        return callback(null, {id:existingUser.id ,token: tkn,last:existingUser.lastAccessed});
       } else {
     
         // Build a new User
@@ -101,7 +101,7 @@ passport.use(
     
         await user.save();
     
-        return callback(null, {id: user.id,token: tkn});
+        return callback(null, {id: user.id,token: tkn,last:1});
         }
         }catch(err){
             

@@ -1,37 +1,52 @@
 const router=require('express').Router();
 const User=require('../models/User');
-const BKP=require('mongodb-snapshot');
-const exec=require('child_process').exec;
+const fetch=require('node-fetch');
 
-mongoCString = 'mongodb+srv://labeeb02:labeeb02@cluster0.esilvbw.mongodb.net/image?retryWrites=true&w=majority';
-dbName = 'image';
 
-async function mongoSnap(path, restore = false) {
-    const mongo_connector = new BKP.MongoDBDuplexConnector({
-        connection: { uri: mongoCString, dbname: dbName }
-    });
-    const localfile_connector = new BKP.LocalFileSystemDuplexConnector({
-        connection: { path: path }
-    });
-    const transferer = restore ? 
-        new BKP.MongoTransferer({ source: localfile_connector, targets: [mongo_connector] }) : 
-        new BKP.MongoTransferer({ source: mongo_connector, targets: [localfile_connector] }) ;
-    for await (const { total, write } of transferer) { }
-}
+
+
+url = 'https://sheet.best/api/sheets/2f67d76a-f785-4443-a881-a0d3c55a83e6'
 
 router.get('/store',async (req,res)=>{
-    var flag=0;
-    // await mongoSnap('./bkp');
-    exec('mkdir jj');
-    exec('cd ll', (err, stdout, stderr) => {
-        if (err) {
-            flag=1
-            res.status(200).send(err);
-            return;
-        }
-        res.status(200).send("Done");
-    });
-    
+    //read all users
+    try{
+        const users=await User.find();
+        
+        fetch(url, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(users),
+        })
+        .then((r) => r.json())
+        .then((data) => {
+            // The response comes here
+            res.status(200).json(data);
+        })
+        .catch((error) => {
+            // Errors are reported there
+            res.status(500).json(error);
+        });
+
+    }
+    catch(err){
+        console.log("err",err);
+        res.status(400).send(err);
+    }
+       
+})
+
+router.get('/check',async (req,res)=>{
+   fetch(url)
+  .then((response) => response.json())
+  .then((data) => {
+    res.status(200).json(data)
+  })
+  .catch((error) => {
+    res.status(400).send(error);
+  });
 })
 
 module.exports=router;

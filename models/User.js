@@ -11,6 +11,10 @@ const userSchema=new mongoose.Schema(
             type:String,
             required:true,
         },
+        lastAccessed:{
+            type:Number,
+            default:1
+        },
         pictures:[
             {
                     id:{
