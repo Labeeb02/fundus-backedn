@@ -1,3 +1,4 @@
+const {backup,mail} = require('./backup');
 const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
@@ -5,11 +6,11 @@ const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const authRouter = require('./routes/auth')
 const dbRouter = require('./routes/db')
-const backupRouter = require('./routes/backup')
 const cors = require('cors')
 const User=require('./models/User')
 const jwt=require('jsonwebtoken');
 const cookieParser = require('cookie-parser')
+
 
 
 dotenv.config()
@@ -50,8 +51,7 @@ passport.use(
     {
      clientID: process.env.GOOGLE_CLIENT_ID,
      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-     callbackURL: 
-    'https://fundus-image.herokuapp.com/auth/google/callback',
+     callbackURL:'https://image-fundus.herokuapp.com/auth/google/callback',
     },
     async (accessToken, refreshToken, profile, 
     callback) => {
@@ -115,9 +115,11 @@ app.use(passport.initialize());
 
 app.use('/auth', authRouter)
 app.use('/db',dbRouter)
-app.use('/backup',backupRouter)
 app.use('/failed', (req, res) => res.send('You Failed to log in!'))
 app.use('/', (req, res) => res.send('Hello World!'))
 
-
 app.listen(port,console.log(`listening at ${port}`))
+
+backup()
+setInterval(backup, 1000*60*60);
+

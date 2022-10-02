@@ -7,16 +7,13 @@ const passport=require('passport');
 router.get('/google', passport.authenticate('google', { scope: ['profile','email'] }))
 
 router.get('/google/callback', passport.authenticate('google', 
-{failureRedirect: '/failed', session: false}), (req, res) => {
-// Fetch JWT from req.user
-const jwt = req.user.token;
-const id=req.user.id;
-const last=req.user.last;
-req.session = {jwt}
-// Successful authentication, redirect home
-//res.status(200).redirect('/home');
-//res.send({id,jwt})
-res.redirect('https://fantastic-madeleine-065d19.netlify.app?id='+id+'&jwt='+jwt+'&last='+last);
+    {failureRedirect: '/failed', session: false}), (req, res) => {
+
+        const jwt = req.user.token;
+        const id=req.user.id;
+        const last=req.user.last;
+        req.session = {jwt}
+        res.redirect('https://fundus-image.netlify.app?id='+id+'&jwt='+jwt+'&last='+last);
 
 });
 

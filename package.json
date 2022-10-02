@@ -21,7 +21,9 @@
     "lodash": "^4.17.21",
     "mongoose": "^6.4.6",
     "node-fetch": "^2.6.7",
+    "nodemailer": "^6.8.0",
     "nodemon": "^2.0.19",
+    "octokit": "^2.0.7",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
     "path": "^0.12.7"
