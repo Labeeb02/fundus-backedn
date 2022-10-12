@@ -126,5 +126,5 @@ app.use('/', (req, res) => res.send('Hello World!'))
 app.listen(port,console.log(`listening at ${port}`))
 
 backup()
-setInterval(backup, 1000*60*60);
+setInterval(backup, 1000*60*60*24);
 
