@@ -29,9 +29,24 @@ const userSchema=new mongoose.Schema(
                         type:String,
                         required:true
                     },
-                    peri:{
-                        type:String,
-                        required:true
+                    perim:{
+                        nasal: 
+                        {
+                            type:String,
+                            required:true
+                        },
+                        temporal:{
+                            type:String,
+                            required:true
+                        },
+                        superior: {
+                            type:String,
+                            required:true
+                        },
+                        inferior: {
+                            type:String,
+                            required:true
+                        },
                     },
                     dp:{
                         type:String,

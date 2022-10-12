@@ -36,7 +36,12 @@ for(var i=1;i<99;i++)
         dp: "NILL",
         ps: "NILL",
         mac: "NILL",
-        peri: "NILL",
+        peri: {
+          nasal: "Nasal",
+          temporal: "Temporal",
+          superior: "Superior",
+          inferior: "inferior"
+        },
         other: [],
         meta_pm: {
             category:'NILL',
