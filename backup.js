@@ -4,6 +4,10 @@ const {Octokit}=require('@octokit/rest');
 const nodemailer=require('nodemailer');
 dotenv.config();
 
+// hello 
+
+const num=2;
+
 const mail=async (msg)=>{
     const transporter = nodemailer.createTransport({
         service: 'yahoo',
