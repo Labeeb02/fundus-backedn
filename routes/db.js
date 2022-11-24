@@ -80,4 +80,60 @@ router.get('/getImage/:photoId',verifyToken,async (req,res)=>{
     }
 })
 
+//find unmatching images
+router.get('/getUnmatched',async (req,res)=>{
+    try{
+        var users=await User.find();
+
+        var unmatched=[];
+
+        if(users)
+        {
+            for(var i=0;i<users[0].pictures.length;i++)
+            {
+                var image;
+                var flag=0;
+                for(var j=0;j<users.length;j++)
+                {
+                    img=users[j].pictures[i];
+                    if(img.dp=="NILL")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        //console.log(img);
+                        if(flag==0)
+                        {
+                            image=img;
+                            flag=1;
+                        }
+                        else
+                        {
+                            if(image.dp!=img.dp || image.ps!=img.ps || image.mac!=img.mac || image.peri.nasal!=img.peri.nasal || image.peri.temporal!=img.peri.temporal || image.peri.superior!=img.peri.superior || image.peri.inferior!=img.peri.inferior || image.meta_pm.category!=img.meta_pm.category || image.meta_pm.lesions!=img.meta_pm.lesions || image.other!=img.other)
+                            {
+                                unmatched.push(i);
+                            }
+                        }
+                    }
+
+                }
+            }
+            //console.log(image);
+            //console.log("Unmatched Images: "+unmatched);
+            //console.log(unmatched);
+            res.status(200).json(unmatched);
+        }
+        else
+        {
+            res.status(404).send('Users Not Found');
+        }
+
+
+    }catch(err){
+        res.status(400).send(err);
+    }
+})
+
+
 module.exports=router;
