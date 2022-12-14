@@ -1,0 +1,7 @@
+PORT = 8080
+MONGO_URI=mongodb+srv://fundus:fundus@cluster0.scwmgbd.mongodb.net/image?retryWrites=true&w=majority
+GOOGLE_CLIENT_ID = 567044818437-7nltfq0a2aljpmla4nl50v6166j7g55p.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET = 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
+JWT_KEY=secret
+GITHUB_API_TOKEN=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
+mongodb+srv://extra:<password>@cluster0.b5yonrg.mongodb.net/?retryWrites=true&w=majority
