@@ -81,6 +81,8 @@ router.get('/getImage/:photoId',verifyToken,async (req,res)=>{
 })
 
 //find unmatching images
+
+
 router.get('/getUnmatched',async (req,res)=>{
     try{
         var users=await User.find();
@@ -89,8 +91,22 @@ router.get('/getUnmatched',async (req,res)=>{
 
         if(users)
         {
+
+            
+
             for(var i=0;i<users[0].pictures.length;i++)
             {
+                
+                var diff={
+                    id:i,
+                    dp: false,
+                    ps: false,
+                    mac: false,
+                    perim: false,
+                    other: false,
+                    meta_pm: false,
+                };
+
                 var image;
                 var flag=0;
                 for(var j=0;j<users.length;j++)
@@ -110,25 +126,51 @@ router.get('/getUnmatched',async (req,res)=>{
                         }
                         else
                         {
-                            if(image.dp!=img.dp || image.ps!=img.ps || image.mac!=img.mac || image.peri.nasal!=img.peri.nasal || image.peri.temporal!=img.peri.temporal || image.peri.superior!=img.peri.superior || image.peri.inferior!=img.peri.inferior || image.meta_pm.category!=img.meta_pm.category || image.meta_pm.lesions!=img.meta_pm.lesions || image.other!=img.other)
+                            // if(image.dp!=img.dp || image.ps!=img.ps || image.mac!=img.mac || image.peri.nasal!=img.peri.nasal || image.peri.temporal!=img.peri.temporal || image.peri.superior!=img.peri.superior || image.peri.inferior!=img.peri.inferior || image.meta_pm.category!=img.meta_pm.category || image.meta_pm.lesions!=img.meta_pm.lesions || image.other!=img.other)
+                            // {
+                            //     unmatched.push(i);
+                            //     break;
+                            // }
+                            if(JSON.stringify(image.dp)!=JSON.stringify(img.dp))
                             {
-                                unmatched.push(i);
+                                   diff.dp=true;
                             }
+                            if(JSON.stringify(image.ps)!=JSON.stringify(img.ps))
+                            {
+                                   diff.ps=true;
+                            }
+                            if(JSON.stringify(image.mac)!=JSON.stringify(img.mac))
+                            {
+                                   diff.mac=true;
+                            }
+                            if(JSON.stringify(image.peri)!=JSON.stringify(img.peri))
+                            {
+                                   diff.perim=true;
+                            }
+                            if(JSON.stringify(image.meta_pm)!=JSON.stringify(img.meta_pm))
+                            {
+                                   diff.meta_pm=true;
+                            }
+                            if(JSON.stringify(image.other)!=JSON.stringify(img.other))
+                            {
+                                   diff.other=true;
+                            }
+                            
                         }
                     }
 
                 }
+                unmatched.push(diff);
             }
             //console.log(image);
             //console.log("Unmatched Images: "+unmatched);
-            //console.log(unmatched);
+            console.log(unmatched);
             res.status(200).json(unmatched);
         }
         else
         {
             res.status(404).send('Users Not Found');
         }
-
 
     }catch(err){
         res.status(400).send(err);

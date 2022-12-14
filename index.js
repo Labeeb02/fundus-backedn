@@ -36,7 +36,7 @@ for(var i=1;i<99;i++)
         dp: "NILL",
         ps: "NILL",
         mac: "NILL",
-        peri: {
+        perim: {
           nasal: "Nasal",
           temporal: "Temporal",
           superior: "Superior",
@@ -56,7 +56,7 @@ passport.use(
     {
      clientID: process.env.GOOGLE_CLIENT_ID,
      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-     callbackURL:'https://image-fundus.herokuapp.com/auth/google/callback',
+     callbackURL:'https://fundus-image.azurewebsites.net/auth/google/callback',
     },
     async (accessToken, refreshToken, profile, 
     callback) => {
